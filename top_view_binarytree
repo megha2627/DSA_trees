@@ -1,0 +1,116 @@
+youre given a binary tree, and your task is to return its top view. The top view of a binary tree is the set of nodes visible when the tree is viewed from the top.
+
+
+// User function Template for Java
+
+/*
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+*/
+class Solution  
+{  
+    // Function that returns a list of the nodes in a binary tree that are visible in the top view, from left to right.  
+    static ArrayList<Integer> topView(Node root)  
+    {  
+        Queue<Pair> q = new ArrayDeque<>();  
+        Map<Integer,Integer> map = new TreeMap<>();  
+          
+        q.add(new Pair(0,root));  
+          
+        while(!q.isEmpty()){  
+              
+            Pair cur = q.poll();  
+              
+            if(!map.containsKey(cur.hc)){  
+                map.put(cur.hc,cur.node.data);  
+            }  
+              
+            if(cur.node.left!=null){  
+                q.add(new Pair(cur.hc-1,cur.node.left));  
+            }  
+            if(cur.node.right!=null){  
+                q.add(new Pair(cur.hc+1,cur.node.right));  
+            }  
+              
+        }  
+          
+        ArrayList<Integer> al = new ArrayList<Integer>();  
+          
+        for(Map.Entry<Integer,Integer> entry : map.entrySet()){  
+            al.add(entry.getValue());  
+        }  
+          
+        return al;  
+          
+    }  
+      
+    public static class Pair{  
+        int hc;  
+        Node node;  
+          
+        public Pair(int hc,Node node){  
+            this.hc=hc;  
+            this.node=node;  
+        }  
+    }  
+}  
+
+/*class Solution {
+
+    // Method to collect nodes from the left subtree
+    static ArrayList<Node> value(Node root, ArrayList<Node> l1) {
+        if (root == null) {
+            return l1;
+        }
+        if (root.left != null) {
+            l1.add(root.left); // Add the left child (if it exists)
+        }
+        value(root.left, l1); // Recursively traverse the left subtree
+        return l1;
+    }
+
+    // Method to collect nodes from the right subtree
+    static ArrayList<Node> value1(Node root, ArrayList<Node> l1) {
+        if (root == null) {
+            return l1;
+        }
+        if (root.right != null) {
+            l1.add(root.right); // Add the right child (if it exists)
+        }
+        value1(root.right, l1); // Recursively traverse the right subtree
+        return l1;
+    }
+
+    // Function to return a list of node data visible from the top view
+    // from left to right in Binary Tree.
+    static ArrayList<Integer> topView(Node root) {
+        ArrayList<Node> l1 = new ArrayList<>();
+        
+        // Check if the root is null
+        if (root == null) {
+            return new ArrayList<>(); // Return an empty list if root is null
+        }
+
+        l1.add(root);  // Add the root node first
+        value(root, l1); 
+        Collections.reverse(l1);// Traverse the left subtree
+        value1(root, l1); // Traverse the right subtree
+
+        // Convert the list of Nodes to a list of Integers (node data)
+        ArrayList<Integer> intList = new ArrayList<>();
+        for (Node node : l1) {
+            intList.add(node.data); // Extract the 'data' from each node
+        }
+
+        return intList;
+    }*/
+
+

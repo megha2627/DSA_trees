@@ -1,0 +1,111 @@
+Given a binary tree, determine if it is height-balanced
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+/*class Solution {
+    int depth1;
+    int depth2;
+    public int value(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        depth1=1+Math.max(value(root.left),value(root.right));
+        return depth1;
+    }
+    public int value1(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        depth2=1+Math.max(value1(root.left),value1(root.right));
+        return depth2;
+    }
+    public boolean isBalanced(TreeNode root) {
+        if(root==null){
+            return true;
+        }
+        TreeNode x=null;
+         TreeNode y=null;
+
+        if(root.left!=null){
+            x=root.left;
+        }
+        if(root.right!=null){
+             y=root.right;
+        }
+        
+        value(x);
+        value1(y);
+       
+        if(Math.abs(depth2-depth1)>1){
+            return false;
+        }
+        return true;
+
+        
+    }
+}*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+
+    // Function to calculate the height of the tree and check if it is balanced
+    public int value(TreeNode root) {
+        if (root == null) {
+            return 0;  // A null tree has height 0
+        }
+
+        // Get the height of the left subtree
+        int leftHeight = value(root.left);
+
+        // Get the height of the right subtree
+        int rightHeight = value(root.right);
+
+        // If any subtree is unbalanced (i.e., the function returns -1), propagate that upwards
+        if (leftHeight == -1 || rightHeight == -1) {
+            return -1;
+        }
+
+        // If the height difference is more than 1, the tree is unbalanced
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return -1;  // Unbalanced
+        }
+
+        // Return the height of the current node, which is the maximum of the left and right subtree heights + 1
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    public boolean isBalanced(TreeNode root) {
+        // Check if the tree is balanced based on the height calculations
+        return value(root) != -1;
+    }
+}
+
+

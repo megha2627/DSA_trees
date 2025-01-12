@@ -1,0 +1,15 @@
+Given an integer i. Print the maximum number of nodes on level i of a binary tree
+
+
+// User function Template for Java
+
+class Solution {
+    static int countNodes(int i) {
+        if(i==1){
+            return 1;
+        }
+        return 2*countNodes(i-1);
+        
+        // code here
+    }
+}

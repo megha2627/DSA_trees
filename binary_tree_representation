@@ -1,0 +1,33 @@
+You are given an array nodes. It contains 7 integers, which represents the value of nodes of the binary tree in level order traversal. You are also given a root of the tree which has a value equal to nodes[0].
+
+Your task to construct a binary tree by creating nodes for the remaining 6 nodes
+
+
+class Solution {
+    // Method to create the binary tree from the ArrayList
+    public static void createTree(Node root0, ArrayList<Integer> v) {
+        create(root0, v, 0);  // Start the recursive creation from index 0
+    }
+
+    // Recursive method to construct the tree
+    public static Node create(Node root0, ArrayList<Integer> v, int i) {
+        // Base case: if index is out of bounds, return null (no node)
+        if (i >= v.size()) {
+            return null;
+        }
+
+        // Assign the value at index `i` to the current node
+        if(i!=0){
+            root0 = new Node(v.get(i));
+
+        }
+
+
+        // Recursively create the left and right children
+        root0.left = create(root0.left, v, 2 * i + 1);  // Left child at index 2*i+1
+        root0.right = create(root0.right, v, 2 * i + 2); // Right child at index 2*i+2
+
+        return root0;  // Return the root of the subtree
+    }
+}
+
